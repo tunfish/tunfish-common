@@ -1,8 +1,6 @@
 from sqlalchemy import exc
-from tunfish.model import Network
-from tunfish.model import Gateway
-from tunfish.model import Router
-from tunfish.database.control import dbc
+from tunfish.library.model import Network, Gateway, Router
+from tunfish.library.database.control import dbc
 
 
 class ServerRPC:

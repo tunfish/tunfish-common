@@ -5,7 +5,7 @@ from sqlalchemy import Sequence
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from pyroute2 import IPRoute
-from tunfish.network.interface import Interface
+from tunfish.library.network.interface import Interface
 
 
 Base = declarative_base()

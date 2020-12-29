@@ -1,5 +1,5 @@
 # create_router_table.py
-from tunfish.model import Router
+from tunfish.library.model import Router
 
 
 def create_router_table(engine):

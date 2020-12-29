@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_namespace_packages
 
-setup(name='tunfish-client',
+setup(name='tunfish-common',
       version='0.1.0',
       description='Convenient VPN infrastructure on top of secure WireGuard tunnels',
       #long_description=README,
@@ -42,7 +42,10 @@ setup(name='tunfish-client',
       },
       zip_safe=False,
       test_suite='tunfish.test',
-      install_requires=["tunfish-common"],
+      install_requires=[
+          'pyroute2',
+      ],
+
       dependency_links=[
       ],
       entry_points={

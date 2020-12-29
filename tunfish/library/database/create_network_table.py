@@ -1,4 +1,4 @@
-from tunfish.model import Network
+from tunfish.library.model import Network
 
 
 def create_network_table(engine):

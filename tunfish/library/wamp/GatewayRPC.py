@@ -1,7 +1,7 @@
 from sqlalchemy import exc
-from tunfish.model import Network
-from tunfish.model import Gateway
-from tunfish.model import Router
+from tunfish.library.model import Network
+from tunfish.library.model import Gateway
+from tunfish.library.model import Router
 import iptc
 
 
