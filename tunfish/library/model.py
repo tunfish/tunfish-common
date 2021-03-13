@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from pyroute2 import IPRoute
 from tunfish.library.network.interface import Interface
+import dataclasses
 
 
 Base = declarative_base()
@@ -113,6 +114,7 @@ class Network(Base):
     enabled = Column('enabled', Boolean, default=False)
     gateway = relationship("Gateway", back_populates='network')
     router = relationship("Router", back_populates='network')
+    wireguardnode = relationship("WireGuardNode", back_populates='network')
 
     def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name')
@@ -121,3 +123,26 @@ class Network(Base):
     def __repr__(self):
         return "name='%s', enabled='%s'" % (self.name, self.enabled)
 
+
+class WireGuardNode(Base):
+
+    __tablename__ = 'wireguardnode'
+
+    id = Column(Integer, Sequence('node_id_seq'), primary_key=True)
+    name = Column('name', String(32), unique=True)
+    public_key = Column('public_key', String(44), unique=True, default=None)
+    endpoint_addr = Column('endpoint_addr', String(32), default=None)
+    endpoint_port = Column('endpoint_port', Integer, default=None)
+    allowed_ips = Column('allowed_ips', String(32), default='0.0.0.0/0')
+    persistent_keepalive = Column('persistent_keepalive', Integer, default=25)
+
+    network_id = Column(Integer, ForeignKey('network.id'))
+    network = relationship("Network", back_populates="wireguardnode")
+
+    def __init__(self, *args, **kwargs):
+        self.name = kwargs.get('name')
+        self.public_key = kwargs.get('public_key')
+        self.endpoint_addr = kwargs.get('endpoint_addr')
+        self.endpoint_port = kwargs.get('endpoint_port')
+        self.allowed_ips = kwargs.get('allowed_ips')
+        self.persistent_keepalive = kwargs.get('persistent_keepalive')
