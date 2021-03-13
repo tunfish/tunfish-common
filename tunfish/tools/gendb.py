@@ -1,7 +1,9 @@
-from tunfish.database.control import dbc
-from tunfish.model import Router, Gateway
+#from tunfish.database.control import dbc
+#from tunfish.model import Router, Gateway
 from sqlalchemy import exc
 from tunfish.tools import genwgkeys
+from tunfish.library.database.control import dbc
+from tunfish.library.model import Router, Gateway, WireGuardNode
 import base64
 
 dbc_handler = dbc()
@@ -38,6 +40,19 @@ def create_device_fixture():
         print(f"GATEWAY: {i}")
         gateway = Gateway(name='gateone', os='debian10', ip='172.16.42.50')
         db_insert(gateway)
+
+    for i in range(1, 5):
+        print(f"NODE: {i}")
+        keys = genwgkeys.Keys()
+        keys.gen_b64_keys()
+        node = WireGuardNode(name=f'Node-{i}',
+                             public_key=keys.public_wg_key.decode("utf-8"),
+                             endpoint_addr=f'10.147.90.5{i}',
+                             endpoint_port=42000 + i,
+                             allowed_ips=f'0.0.0.0/0',
+                             persistent_keepalive=25)
+        db_insert(node)
+
 
 
 create_device_fixture()

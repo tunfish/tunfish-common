@@ -3,6 +3,7 @@ from tunfish.library.database.create_database import create_postgresql_database
 from tunfish.library.database.create_gw_table import create_gw_table
 from tunfish.library.database.create_router_table import create_router_table
 from tunfish.library.database.create_network_table import create_network_table
+from tunfish.library.database.create_node_table import create_node_table
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -33,3 +34,4 @@ class dbc:
         create_network_table(self.engine)
         create_gw_table(self.engine)
         create_router_table(self.engine)
+        create_node_table(self.engine)

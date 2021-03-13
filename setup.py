@@ -44,6 +44,7 @@ setup(name='tunfish-common',
       test_suite='tunfish.test',
       install_requires=[
           'pyroute2',
+          'pysodium'
       ],
 
       dependency_links=[
